@@ -11,10 +11,6 @@ class Simple : public Value<std::string>
 {
     public:
         Simple(const std::string& str) : Value(str) {}
-        Simple(const Simple&) = default;
-        Simple(Simple&&) = default;
-        Simple& operator=(const Simple&) = default;
-        Simple& operator=(Simple&&) = default;
 };
 
 
