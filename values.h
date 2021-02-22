@@ -19,7 +19,7 @@ template<typename T>
 class Values
 {
     public:
-        struct const_iterator;  // forward declaration
+        struct const_iterator;      // forward declaration
 
         struct iterator
         {
@@ -48,6 +48,7 @@ class Values
             friend bool operator== (const iterator& a, const iterator& b) { return a.m_ptr == b.m_ptr; };
             friend bool operator!= (const iterator& a, const iterator& b) { return a.m_ptr != b.m_ptr; };
             friend size_t operator- (const iterator& a, const iterator& b) { return a.m_ptr - b.m_ptr; };
+            friend bool operator< (const iterator& a, const iterator& b) { return a.m_ptr < b.m_ptr; };
             friend const_iterator;
 
             private:
@@ -111,9 +112,12 @@ class Values
             // Postfix decrement
             reverse_iterator operator--(int) { reverse_iterator tmp = *this; ++m_ptr; return tmp; }
 
-            friend bool operator== (const reverse_iterator& a, const reverse_iterator& b) { return a.m_ptr == b.m_ptr; };
-            friend bool operator!= (const reverse_iterator& a, const reverse_iterator& b) { return a.m_ptr != b.m_ptr; };
-            friend size_t operator- (const reverse_iterator& a, const reverse_iterator& b) { return a.m_ptr - b.m_ptr; };
+            friend bool operator== (const reverse_iterator& a, const reverse_iterator& b) 
+                { return a.m_ptr == b.m_ptr; };
+            friend bool operator!= (const reverse_iterator& a, const reverse_iterator& b) 
+                { return a.m_ptr != b.m_ptr; };
+            friend size_t operator- (const reverse_iterator& a, const reverse_iterator& b) 
+                { return a.m_ptr - b.m_ptr; };
 
             private:
                 pointer m_ptr;

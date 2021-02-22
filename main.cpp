@@ -11,6 +11,10 @@ class Simple : public Value<std::string>
 {
     public:
         Simple(const std::string& str) : Value(str) {}
+        Simple(const Simple&) = default;
+        Simple(Simple&&) = default;
+        Simple& operator=(const Simple&) = default;
+        Simple& operator=(Simple&&) = default;
 };
 
 
@@ -44,7 +48,7 @@ int main()
     // String 3
     // String 2
     // String 1
-    for (auto &iter = cont.rbegin(); iter != cont.rend(); ++iter)
+    for (auto iter = cont.rbegin(); iter != cont.rend(); ++iter)
     {
         cout << iter->getValue() << '\n';
     }
@@ -55,7 +59,7 @@ int main()
     // String 1
     // String 2
     // String 3
-    for (auto& iter = cSimp.cbegin(); iter != cSimp.cend(); ++iter)
+    for (auto iter = cSimp.cbegin(); iter != cSimp.cend(); ++iter)
     {
         cout << (*iter).getValue() << '\n';
     }
@@ -64,7 +68,7 @@ int main()
     // String 3
     // String 2
     // String 1
-    for (auto& iter = cSimp.crbegin(); iter != cSimp.crend(); ++iter)
+    for (auto iter = cSimp.crbegin(); iter != cSimp.crend(); ++iter)
     {
         cout << iter->getValue() << '\n';
     }
@@ -75,7 +79,7 @@ int main()
     // String 1
     // String 2
     // String 3
-    for (auto& iter = cont2.begin(); iter != cont2.end(); ++iter)
+    for (auto iter = cont2.begin(); iter != cont2.end(); ++iter)
     {
         cout << iter->getValue() << '\n';
     }
@@ -85,7 +89,7 @@ int main()
     // String 3
     // String 2
     // String 1
-    for (auto& iter = cont2.begin(); iter != cont2.end(); ++iter)
+    for (auto iter = cont2.begin(); iter != cont2.end(); ++iter)
     {
         cout << iter->getValue() << '\n';
     }

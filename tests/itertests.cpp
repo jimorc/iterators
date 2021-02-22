@@ -25,7 +25,7 @@ TEST(IterTests, testIterator)
     values.push_back(Val(std::string("string 1")));
     Val val(std::string("string 2"));
     values.push_back(val);
-    auto& iter = values.begin();
+    auto iter = values.begin();
 
     ASSERT_EQ("string 1", iter->getValue());
     ++iter;
@@ -68,7 +68,7 @@ TEST(IterTests, testConstIterator)
     values.push_back(val);
 
     const Vals values2 = values;    
-    auto& iter = values2.cbegin();
+    auto iter = values2.cbegin();
 
     ASSERT_EQ(std::string("string 1"), iter->getValue());
     ++iter;
@@ -109,7 +109,7 @@ TEST(IterTests, testReverseIterator)
     values.push_back(Val(std::string("string 1")));
     Val val(std::string("string 2"));
     values.push_back(val);
-    auto& iter = values.rbegin();
+    auto iter = values.rbegin();
 
     ASSERT_EQ("string 2", iter->getValue());
     ++iter;
@@ -121,7 +121,7 @@ TEST(IterTests, testReverseIterator)
     ASSERT_EQ("string 1", iter->getValue());
 
     std::stringstream ss;
-    for (auto& iter = values.rbegin(); iter != values.rend(); iter++)
+    for (auto iter = values.rbegin(); iter != values.rend(); iter++)
     {
         ss << iter->getValue() << ' ';
     }
@@ -150,7 +150,7 @@ TEST(IterTests, testConstReverseIterator)
     values.push_back(Val(std::string("string 1")));
     Val val(std::string("string 2"));
     values.push_back(val);
-    auto& iter = values.crbegin();
+    auto iter = values.crbegin();
 
     ASSERT_EQ("string 2", iter->getValue());
     ++iter;
@@ -162,7 +162,7 @@ TEST(IterTests, testConstReverseIterator)
     ASSERT_EQ("string 1", iter->getValue());
 
     std::stringstream ss;
-    for (auto& iter = values.crbegin(); iter != values.crend(); iter++)
+    for (auto iter = values.crbegin(); iter != values.crend(); iter++)
     {
         ss << iter->getValue() << ' ';
     }
@@ -211,7 +211,7 @@ TEST(IterTests, testIteratorWithStdLib)
     ASSERT_EQ("string 1", values[0].getValue());
     ASSERT_EQ("string 1", values[1].getValue());
 
-    auto& iter = std::find_if(values2.begin(), values2.end(), 
+    auto iter = std::find_if(values2.begin(), values2.end(), 
         [](Val val){ return val.getValue() == std::string("string 2"); });
 
     ASSERT_EQ("string 2", iter->getValue());
@@ -243,7 +243,7 @@ TEST(IterTests, testReverseIteratorWithStdLib)
     Vals values2;
     values2.push_back(Val(std::string("string 3")));
     values2.push_back(Val(std::string("string 4")));
-    std::copy(values.rbegin(), values.rend(), values2.begin());
+    std::copy(values.begin(), values.end(), values2.rbegin());
 
     ASSERT_EQ("string 2", values2[0].getValue());
     ASSERT_EQ("string 1", values2[1].getValue());
@@ -259,7 +259,7 @@ TEST(IterTests, testReverseIteratorWithStdLib)
     ASSERT_EQ("string 1", values[0].getValue());
     ASSERT_EQ("string 1", values[1].getValue());
 
-    auto& iter = std::find_if(values2.rbegin(), values2.rend(), 
+    auto iter = std::find_if(values2.rbegin(), values2.rend(), 
         [](Val val){ return val.getValue() == std::string("string 2"); });
 
     ASSERT_EQ("string 2", iter->getValue());
@@ -270,7 +270,7 @@ TEST(IterTests, testReverseIteratorWithStdLib)
     ASSERT_EQ("string 0", values[1].getValue());
 
     values[1] = Val(std::string("string 4"));
-    std::reverse(values.rbegin(), values.rend());
+    std::reverse(values.begin(), values.end());
 
     ASSERT_EQ("string 4", values[0].getValue());
     ASSERT_EQ("string 0", values[1].getValue());
@@ -301,7 +301,7 @@ TEST(IterTests, testInserter)
 
     values1 = values;
     iter = values1.end();
-    std::copy(values2.rbegin(), values2.rend(), std::inserter(values1, iter));
+    std::reverse_copy(values2.begin(), values2.end(), std::inserter(values1, iter));
     
     ASSERT_EQ("0", values1[0].getValue());
     ASSERT_EQ("1", values1[1].getValue());
