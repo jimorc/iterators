@@ -1,6 +1,6 @@
 # iterators
 This code in this repository creates a simple C++ value class and a custom C++ container class, including iterators, for objects of the value class. The value class and the container class are templated so that you can create value and container classes that hold different value types. 
-See the article Custom C++ Container Classes With Iterators (link to be added shortly) for a description of the various classes.
+See the article [Custom C++ Container Classes With Iterators](https://computingonplains.wordpress.com/custom-c-container-classes-with-iterators/) for a description of the various classes.
 
 In addition to the templated classes, the project includes both a test program and unit tests using GoogleTest.
 
