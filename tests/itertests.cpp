@@ -313,7 +313,7 @@ TEST(IterTests, testIteratorReverseCopy)
     ASSERT_EQ("string 4", values2[1].getValue());
 }
 
-TEST(IterTests, testReverseIteratorWithStdLib)
+TEST(IterTests, testReverseIteratorCopy)
 {
     Vals values;
     values.push_back(Val(std::string("string 1")));
@@ -327,38 +327,49 @@ TEST(IterTests, testReverseIteratorWithStdLib)
 
     ASSERT_EQ("string 2", values2[0].getValue());
     ASSERT_EQ("string 1", values2[1].getValue());
+}
 
-    values2.push_back(Val(std::string("string 1")));
-    values.clear();
+TEST(IterTests, testReverseIteratorCopyIf)
+{
+    Vals values;
     values.push_back(Val(std::string("string 3")));
     values.push_back(Val(std::string("string 4")));
+    Vals values2;
+    values2.push_back(Val(std::string("string 1")));
+    values2.push_back(Val(std::string("string 3")));
+    values2.push_back(Val(std::string("string 4")));
+
+    values2.push_back(Val(std::string("string 1")));
     std::copy_if(values2.rbegin(), values2.rend(), values.begin(),
         [](Val val){ return val.getValue()==std::string("string 1"); });
     
     ASSERT_EQ(2, values.size());
     ASSERT_EQ("string 1", values[0].getValue());
     ASSERT_EQ("string 1", values[1].getValue());
+}
 
+TEST(IterTests, testReverseIteratorFindIf)
+{
+    Vals values2;
+    values2.push_back(Val(std::string("string 3")));
+    values2.push_back(Val(std::string("string 4")));
+    values2.push_back(Val(std::string("string 2")));
+    values2.push_back(Val(std::string("string 1")));
     auto iter = std::find_if(values2.rbegin(), values2.rend(), 
         [](Val val){ return val.getValue() == std::string("string 2"); });
 
     ASSERT_EQ("string 2", iter->getValue());
+}
 
+TEST(IterTests, testReverseIteratorFill)
+{
+    Vals values;
+    values.push_back(Val(std::string("string 1")));
+    values.push_back(Val(std::string("string 3")));
     std::fill(values.rbegin(), values.rend(), Val(std::string("string 0")));
 
     ASSERT_EQ("string 0", values[0].getValue());
     ASSERT_EQ("string 0", values[1].getValue());
-
-    values[1] = Val(std::string("string 4"));
-    std::reverse(values.begin(), values.end());
-
-    ASSERT_EQ("string 4", values[0].getValue());
-    ASSERT_EQ("string 0", values[1].getValue());
-
-    std::reverse_copy(values.rbegin(), values.rend(), values2.begin());
-
-    ASSERT_EQ("string 4", values2[0].getValue());
-    ASSERT_EQ("string 0", values2[1].getValue());
 }
 
 TEST(IterTests, testInserter)
