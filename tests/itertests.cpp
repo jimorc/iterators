@@ -19,6 +19,38 @@ class Vals : public Values<Val>
         virtual ~Vals() {}
 };
 
+TEST(IterTests, testIteratorNoVal)
+{
+    Vals values;
+    auto begin = values.begin();
+    auto end = values.end();
+    ASSERT_EQ(begin, end);
+}
+
+TEST(IterTests, testConstIteratorNoVal)
+{
+    Vals values;
+    auto begin = values.cbegin();
+    auto end = values.cend();
+    ASSERT_EQ(begin, end);
+}
+
+TEST(IterTests, testReverseIteratorNoVal)
+{
+    Vals values;
+    auto begin = values.rbegin();
+    auto end = values.rend();
+    ASSERT_EQ(begin, end);
+}
+
+TEST(IterTests, testConstReverseIteratorNoVal)
+{
+    Vals values;
+    auto begin = values.crbegin();
+    auto end = values.crend();
+    ASSERT_EQ(begin, end);
+}
+
 TEST(IterTests, testIterator)
 {
     Vals values;

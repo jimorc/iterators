@@ -195,15 +195,14 @@ class Values
             }
             return iter;
         }
-        iterator begin() noexcept { return iterator(&m_values[0]); }
-        iterator end() noexcept { return iterator(&m_values[0] + m_values.size()); }
-        const_iterator cbegin() const noexcept { return const_iterator(&m_values[0]); }
-        const_iterator cend() const noexcept { return const_iterator(&m_values[0] + m_values.size()); }
-        reverse_iterator rbegin() noexcept { return reverse_iterator(&m_values[m_values.size() - 1]); }
-        reverse_iterator rend() noexcept { return reverse_iterator(&m_values[m_values.size() - 1] - m_values.size()); }
-        const_reverse_iterator crbegin() const noexcept { return const_reverse_iterator(&m_values[m_values.size() - 1]); }
-        const_reverse_iterator crend() const noexcept { return const_reverse_iterator(&m_values[m_values.size() - 1] - m_values.size()); }
-
+        iterator begin() noexcept { return iterator(m_values.data()); }
+        iterator end() noexcept { return iterator(m_values.data() + m_values.size()); }
+        const_iterator cbegin() const noexcept { return const_iterator(m_values.data()); }
+        const_iterator cend() const noexcept { return const_iterator(m_values.data() + m_values.size()); }
+        reverse_iterator rbegin() noexcept { return reverse_iterator(m_values.data() + m_values.size() - 1); }
+        reverse_iterator rend() noexcept { return reverse_iterator(m_values.data() - 1); }
+        const_reverse_iterator crbegin() const noexcept { return const_reverse_iterator(m_values.data() + m_values.size() - 1); }
+        const_reverse_iterator crend() const noexcept { return const_reverse_iterator(m_values.data() - 1); }
     private:
         std::vector<T> m_values;
 };
